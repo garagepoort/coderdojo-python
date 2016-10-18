@@ -1,18 +1,20 @@
 #!/usr/bin/python
+from worldpiece import WorldPiece
 
 class Snake:
 
-	def __init__(self):
+	def __init__(self, startRow, startCol):
 		self.pieces = []
-		self.pieces.append(SnakePiece(3,0))
-		self.pieces.append(SnakePiece(3,1))
-		self.pieces.append(SnakePiece(3,2))
-		self.pieces.append(SnakePiece(3,3))
-		self.pieces.append(SnakePiece(3,4))
-		self.pieces.append(SnakePiece(3,5))
-		self.pieces.append(SnakePiece(3,6))
+		self.pieces.append(WorldPiece(startRow, startCol))
+		self.pieces.append(WorldPiece(startRow, startCol + 1))
+		self.pieces.append(WorldPiece(startRow, startCol + 2))
+		self.pieces.append(WorldPiece(startRow, startCol + 3))
+
+		self.lastTailRow = startRow
+		self.lastTailCol = startCol + 3
+
 		self.speed = 1;
-		self.direction = 'DOWN';
+		self.direction = 'LEFT';
 
 	def getSpeed(self):
 		return self.speed;
@@ -42,9 +44,18 @@ class Snake:
 		if(self.direction != 'UP'):
 			self.direction = 'DOWN'
 
+	def grow(self):
+		self.pieces.append(WorldPiece(self.lastTailRow, self.lastTailCol))
+
+	def getHead(self):
+		return self.pieces[0]
+
 	def move(self):
 		head = self.pieces[0]
 		tail = self.pieces[-1]
+
+		self.lastTailRow = tail.getRow()
+		self.lastTailCol = tail.getCol()
 
 		tail.setCol(head.getCol())
 		tail.setRow(head.getRow())
@@ -60,28 +71,3 @@ class Snake:
 
 		self.pieces.remove(tail)
 		self.pieces.insert(0, tail)
-
-class SnakePiece:
-
-	def __init__(self, row, col):
-		self.row = row;
-		self.col = col;
-		self.rect = None
-
-	def getCol(self):
-		return self.col;
-
-	def getRow(self):
-		return self.row;
-
-	def setRow(self, row):
-		self.row = row
-
-	def setCol(self, col):
-		self.col = col
-
-	def setRect(self, rect):
-		self.rect = rect
-
-	def getRect(self):
-		return self.rect

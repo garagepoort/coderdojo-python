@@ -3,26 +3,36 @@ from graphics import *
 
 class GameDrawer:
 
-	def __init__(self):
+	def __init__(self, window):
 		self.blockSize = 10
+		self.window = window
 
-	def draw(self, window, world):
+	def draw(self, world):
 		snake = world.getSnake()
 
 		if world.isGameOver() == False:
-			for i in range(0, snake.getLength()):
-				piece = snake.pieces[i]
-
+			for piece in world.getRemovedFoodPieces():
 				if piece.getRect() is not None:
 					piece.getRect().undraw()
 
-				x = (piece.col + 1) * self.blockSize
-				y = (piece.row + 1) * self.blockSize
+			for piece in world.getFoodPieces():
+				self.drawWorldPiece(piece, self.blockSize, 'red')
 
-				aRectangle = Rectangle(
-					Point(x, y),
-					Point(x + self.blockSize, y + self.blockSize))
+			for piece in snake.getPieces():
+				self.drawWorldPiece(piece, self.blockSize, 'black')
 
-				piece.setRect(aRectangle)
-				aRectangle.draw(window)
+	def drawWorldPiece(self, piece, size, color):
+		if piece.getRect() is not None:
+			piece.getRect().undraw()
 
+		x = piece.col * size
+		y = piece.row * size
+
+		aRectangle = Rectangle(
+			Point(x, y),
+			Point(x + size, y + size))
+
+		aRectangle.setFill(color)
+		aRectangle.setOutline('white')
+		piece.setRect(aRectangle)
+		aRectangle.draw(self.window)

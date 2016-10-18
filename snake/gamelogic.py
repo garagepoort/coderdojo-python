@@ -1,5 +1,6 @@
 #!/usr/bin/python
 from snake import *
+from random import randint
 
 class Gamelogic:
 
@@ -19,6 +20,10 @@ class Gamelogic:
 		if world.hasSnakeCollided():
 			world.setGameOver()
 
+		if world.hasSnakeFoundFood():
+			snake.grow()
+			world.removeFood()
+			world.placeFoodInWorld(randint(0,39), randint(0,29))
 
 
 
