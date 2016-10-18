@@ -5,6 +5,7 @@ class Snake:
 
 	def __init__(self, startRow, startCol):
 		self.pieces = []
+		self.piecesToGrow = []
 		self.pieces.append(WorldPiece(startRow, startCol))
 		self.pieces.append(WorldPiece(startRow, startCol + 1))
 		self.pieces.append(WorldPiece(startRow, startCol + 2))
@@ -44,13 +45,18 @@ class Snake:
 		if(self.direction != 'UP'):
 			self.direction = 'DOWN'
 
-	def grow(self):
-		self.pieces.append(WorldPiece(self.lastTailRow, self.lastTailCol))
+	def grow(self, size):
+		for i in range(0, size):
+			self.piecesToGrow.append(WorldPiece(self.lastTailRow, self.lastTailCol))
 
 	def getHead(self):
 		return self.pieces[0]
 
 	def move(self):
+		if self.piecesToGrow:
+			piece = self.piecesToGrow.pop()
+			self.pieces.append(piece)
+
 		head = self.pieces[0]
 		tail = self.pieces[-1]
 
