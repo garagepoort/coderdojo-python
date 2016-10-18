@@ -61,7 +61,6 @@ class Snake:
 		self.pieces.remove(tail)
 		self.pieces.insert(0, tail)
 
-
 class SnakePiece:
 
 	def __init__(self, row, col):

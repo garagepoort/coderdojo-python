@@ -3,25 +3,21 @@ import sys
 from snake import *
 from gamelogic import *
 from gameDrawer import *
+from world import *
 from time import sleep
-
-global running
-global gamelogic
-global gameDrawer
 
 running = True;
 gameLogic = Gamelogic();
 gameDrawer = GameDrawer();
-
+world = World()
 
 window = GraphWin('Snake', 400, 300, autoflush=False)
 
+gameDrawer.draw(window, world)
 
-gameDrawer.draw(window, gameLogic)
-
-while running == True:
-	gameLogic.execute(window)
-	gameLogic.getSnake().move()
-	gameDrawer.draw(window, gameLogic)
+while running == True and world.isGameOver() == False:
+	gameLogic.execute(window, world)
+	world.getSnake().move()
+	gameDrawer.draw(window, world)
 	window.update()
 	sleep(0.20)

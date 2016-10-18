@@ -3,19 +3,25 @@ from snake import *
 
 class Gamelogic:
 
-	def __init__(self):
-		self.snake = Snake();
+	def execute(self, window, world):
+		snake = world.getSnake()
 
-	def getSnake(self):
-		return self.snake
-
-	def execute(self, window):
 		key = window.checkKey()
 		if key == 'Right':
-			self.snake.moveRight()
+			snake.moveRight()
 		if key == 'Left':
-			self.snake.moveLeft()
+			snake.moveLeft()
 		if key == 'Up':
-			self.snake.moveUp()
+			snake.moveUp()
 		if key == 'Down':
-			self.snake.moveDown()
+			snake.moveDown()
+
+		if world.hasSnakeCollided():
+			world.setGameOver()
+
+
+
+
+
+
+
