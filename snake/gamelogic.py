@@ -21,9 +21,16 @@ class Gamelogic:
 			world.setGameOver()
 
 		if world.hasSnakeFoundFood():
-			snake.grow(2)
+			if snake.getLength() > 10:
+				snake.grow(2)
+			else:
+				snake.grow(1)
+				
 			world.removeFood()
 			world.placeFoodInWorld(randint(0,28), randint(0,38))
+			world.setScore(world.getScore() + 10)
+
+
 
 
 

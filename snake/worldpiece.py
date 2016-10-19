@@ -24,3 +24,6 @@ class WorldPiece:
 
 	def getRect(self):
 		return self.rect
+
+	def hasSamePosition(self, piece):
+		return self.col == piece.getCol() and self.row == piece.getRow()

@@ -4,9 +4,10 @@ from snake import *
 class World:
 
  	def __init__(self):
-		self.foodPieces = [
-			WorldPiece(15, 8)
-		];
+ 		self.maxRows = 30
+ 		self.maxCols = 40
+ 		self.score = 0
+		self.foodPieces = [ WorldPiece(15, 8) ];
 		self.removedFoodPieces = []
 		self.snake = Snake(15, 20);
  		self.gameOver = False
@@ -32,8 +33,8 @@ class World:
 			return True
 
 		for i in range(1, self.snake.getLength()):
-			piece = self.snake.getPieces()[i]; 
-			if piece.getCol() == head.getCol() and piece.getRow() == head.getRow():
+			piece = self.snake.getPieces()[i];
+			if piece.hasSamePosition(head):
 				return True
 
 		return False;
@@ -47,7 +48,7 @@ class World:
 	def hasSnakeFoundFood(self):
 		head = self.snake.getHead()
 		for piece in self.foodPieces:
-			if piece.getCol() == head.getCol() and piece.getRow() == head.getRow():
+			if piece.hasSamePosition(head):
 				return True
 
 	def placeFoodInWorld(self, row, col):
@@ -56,3 +57,15 @@ class World:
 	def removeFood(self):
 		self.removedFoodPieces.append(self.foodPieces[0])
 		self.foodPieces.pop(0)
+
+	def setScore(self, score):
+		self.score = score
+
+	def getScore(self):
+		return self.score
+
+	def getMaxRows(self):
+		return self.maxRows
+
+	def getMaxCols(self):
+		return self.maxCols
