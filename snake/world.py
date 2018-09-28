@@ -1,71 +1,72 @@
 #!/usr/bin/python
 from snake import *
 
+
 class World:
 
- 	def __init__(self):
- 		self.maxRows = 30
- 		self.maxCols = 40
- 		self.score = 0
-		self.foodPieces = [ WorldPiece(15, 8) ];
-		self.removedFoodPieces = []
-		self.snake = Snake(15, 20);
- 		self.gameOver = False
+    def __init__(self):
+        self.max_rows = 30
+        self.max_cols = 40
+        self.score = 0
+        self.food_pieces = [WorldPiece(15, 8)]
+        self.removed_food_pieces = []
+        self.snake = Snake(15, 20)
+        self.game_over = False
 
-	def getSnake(self):
-		return self.snake
+    def get_snake(self):
+        return self.snake
 
- 	def setGameOver(self):
- 		self.gameOver = True
+    def set_game_over(self):
+        self.game_over = True
 
- 	def isGameOver(self):
- 		return self.gameOver
+    def is_game_over(self):
+        return self.game_over
 
-	def hasSnakeCollided(self):
-		head = self.snake.getHead()
-		if self.snake.getDirection() == 'LEFT' and head.getCol() == 0:
-			return True
-		if self.snake.getDirection() == 'RIGHT' and head.getCol() == 39:
-			return True
-		if self.snake.getDirection() == 'UP' and head.getRow() == 0:
-			return True
-		if self.snake.getDirection() == 'DOWN' and head.getRow() == 29:
-			return True
+    def has_snake_collided(self):
+        head = self.snake.get_head()
+        if self.snake.get_direction() == 'LEFT' and head.get_col() == 0:
+            return True
+        if self.snake.get_direction() == 'RIGHT' and head.get_col() == 39:
+            return True
+        if self.snake.get_direction() == 'UP' and head.get_row() == 0:
+            return True
+        if self.snake.get_direction() == 'DOWN' and head.get_row() == 29:
+            return True
 
-		for i in range(1, self.snake.getLength()):
-			piece = self.snake.getPieces()[i];
-			if piece.hasSamePosition(head):
-				return True
+        for i in range(1, self.snake.get_length()):
+            piece = self.snake.get_pieces()[i]
+            if piece.has_same_position(head):
+                return True
 
-		return False;
+        return False
 
-	def getFoodPieces(self):
-		return self.foodPieces
+    def get_food_pieces(self):
+        return self.food_pieces
 
-	def	getRemovedFoodPieces(self):
-		return self.removedFoodPieces
+    def get_removed_food_pieces(self):
+        return self.removed_food_pieces
 
-	def hasSnakeFoundFood(self):
-		head = self.snake.getHead()
-		for piece in self.foodPieces:
-			if piece.hasSamePosition(head):
-				return True
+    def has_snake_found_food(self):
+        head = self.snake.get_head()
+        for piece in self.food_pieces:
+            if piece.has_same_position(head):
+                return True
 
-	def placeFoodInWorld(self, row, col):
-		self.foodPieces.append(WorldPiece(row, col))
+    def place_food_in_world(self, row, col):
+        self.food_pieces.append(WorldPiece(row, col))
 
-	def removeFood(self):
-		self.removedFoodPieces.append(self.foodPieces[0])
-		self.foodPieces.pop(0)
+    def remove_food(self):
+        self.removed_food_pieces.append(self.food_pieces[0])
+        self.food_pieces.pop(0)
 
-	def setScore(self, score):
-		self.score = score
+    def set_score(self, score):
+        self.score = score
 
-	def getScore(self):
-		return self.score
+    def get_score(self):
+        return self.score
 
-	def getMaxRows(self):
-		return self.maxRows
+    def get_max_rows(self):
+        return self.max_rows
 
-	def getMaxCols(self):
-		return self.maxCols
+    def get_max_cols(self):
+        return self.max_cols

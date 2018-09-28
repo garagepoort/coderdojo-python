@@ -1,79 +1,80 @@
 #!/usr/bin/python
 from worldpiece import WorldPiece
 
+
 class Snake:
 
-	def __init__(self, startRow, startCol):
-		self.pieces = []
-		self.piecesToGrow = []
-		self.pieces.append(WorldPiece(startRow, startCol))
-		self.pieces.append(WorldPiece(startRow, startCol + 1))
-		self.pieces.append(WorldPiece(startRow, startCol + 2))
-		self.pieces.append(WorldPiece(startRow, startCol + 3))
+    def __init__(self, start_row, start_col):
+        self.pieces = []
+        self.pieces_to_grow = []
+        self.pieces.append(WorldPiece(start_row, start_col))
+        self.pieces.append(WorldPiece(start_row, start_col + 1))
+        self.pieces.append(WorldPiece(start_row, start_col + 2))
+        self.pieces.append(WorldPiece(start_row, start_col + 3))
 
-		self.lastTailRow = startRow
-		self.lastTailCol = startCol + 3
+        self.last_tail_row = start_row
+        self.last_tail_col = start_col + 3
 
-		self.speed = 1;
-		self.direction = 'LEFT';
+        self.speed = 1
+        self.direction = 'LEFT'
 
-	def getSpeed(self):
-		return self.speed;
+    def get_speed(self):
+        return self.speed
 
-	def getDirection(self):
-		return self.direction
+    def get_direction(self):
+        return self.direction
 
-	def getLength(self):
-		return len(self.pieces)
+    def get_length(self):
+        return len(self.pieces)
 
-	def getPieces(self):
-		return self.pieces
+    def get_pieces(self):
+        return self.pieces
 
-	def moveLeft(self):
-		if(self.direction != 'RIGHT'):
-			self.direction = 'LEFT'
+    def move_left(self):
+        if self.direction != 'RIGHT':
+            self.direction = 'LEFT'
 
-	def moveRight(self):
-		if(self.direction != 'LEFT'):
-			self.direction = 'RIGHT'
-	
-	def moveUp(self):
-		if(self.direction != 'DOWN'):
-			self.direction = 'UP'
-	
-	def moveDown(self):
-		if(self.direction != 'UP'):
-			self.direction = 'DOWN'
+    def move_right(self):
+        if self.direction != 'LEFT':
+            self.direction = 'RIGHT'
 
-	def grow(self, size):
-		for i in range(0, size):
-			self.piecesToGrow.append(WorldPiece(self.lastTailRow, self.lastTailCol))
+    def move_up(self):
+        if self.direction != 'DOWN':
+            self.direction = 'UP'
 
-	def getHead(self):
-		return self.pieces[0]
+    def move_down(self):
+        if self.direction != 'UP':
+            self.direction = 'DOWN'
 
-	def move(self):
-		if self.piecesToGrow:
-			piece = self.piecesToGrow.pop()
-			self.pieces.append(piece)
+    def grow(self, size):
+        for i in range(0, size):
+            self.pieces_to_grow.append(WorldPiece(self.last_tail_row, self.last_tail_col))
 
-		head = self.pieces[0]
-		tail = self.pieces[-1]
+    def get_head(self):
+        return self.pieces[0]
 
-		self.lastTailRow = tail.getRow()
-		self.lastTailCol = tail.getCol()
+    def move(self):
+        if self.pieces_to_grow:
+            piece = self.pieces_to_grow.pop()
+            self.pieces.append(piece)
 
-		tail.setCol(head.getCol())
-		tail.setRow(head.getRow())
+        head = self.pieces[0]
+        tail = self.pieces[-1]
 
-		if self.direction == 'LEFT':
-			tail.setCol(head.getCol() - 1)
-		if self.direction == 'RIGHT':
-			tail.setCol(head.getCol() + 1)
-		if self.direction == 'UP':
-			tail.setRow(head.getRow() - 1)
-		if self.direction == 'DOWN':
-			tail.setRow(head.getRow() + 1)
+        self.last_tail_row = tail.get_row()
+        self.last_tail_col = tail.get_col()
 
-		self.pieces.remove(tail)
-		self.pieces.insert(0, tail)
+        tail.set_col(head.get_col())
+        tail.set_row(head.get_row())
+
+        if self.direction == 'LEFT':
+            tail.set_col(head.get_col() - 1)
+        if self.direction == 'RIGHT':
+            tail.set_col(head.get_col() + 1)
+        if self.direction == 'UP':
+            tail.set_row(head.get_row() - 1)
+        if self.direction == 'DOWN':
+            tail.set_row(head.get_row() + 1)
+
+        self.pieces.remove(tail)
+        self.pieces.insert(0, tail)

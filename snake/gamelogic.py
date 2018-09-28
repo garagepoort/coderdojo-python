@@ -2,38 +2,31 @@
 from snake import *
 from random import randint
 
-class Gamelogic:
 
-	def execute(self, window, world):
-		snake = world.getSnake()
+class GameLogic:
 
-		key = window.checkKey()
-		if key == 'Right':
-			snake.moveRight()
-		if key == 'Left':
-			snake.moveLeft()
-		if key == 'Up':
-			snake.moveUp()
-		if key == 'Down':
-			snake.moveDown()
+    def execute(self, window, world):
+        snake = world.get_snake()
 
-		if world.hasSnakeCollided():
-			world.setGameOver()
+        key = window.checkKey()
+        if key == 'Right':
+            snake.move_right()
+        if key == 'Left':
+            snake.move_left()
+        if key == 'Up':
+            snake.move_up()
+        if key == 'Down':
+            snake.move_down()
 
-		if world.hasSnakeFoundFood():
-			if snake.getLength() > 10:
-				snake.grow(2)
-			else:
-				snake.grow(1)
-				
-			world.removeFood()
-			world.placeFoodInWorld(randint(0,28), randint(0,38))
-			world.setScore(world.getScore() + 10)
+        if world.has_snake_collided():
+            world.set_game_over()
 
+        if world.has_snake_found_food():
+            if snake.get_length() > 10:
+                snake.grow(2)
+            else:
+                snake.grow(1)
 
-
-
-
-
-
-
+            world.remove_food()
+            world.place_food_in_world(randint(0, 28), randint(0, 38))
+            world.set_score(world.get_score() + 10)
